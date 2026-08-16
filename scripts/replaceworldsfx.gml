@@ -67,6 +67,7 @@ replacesound("itemcratebreak",wskin+"sfx\itemcratebreak.wav")
 replacesound("itemgearplatform",wskin+"sfx\itemgearplatform.wav")
 replacesound("itemwarpboxenter",wskin+"sfx\itemwarpboxenter.wav")
 replacesound("itemwarpboxexit",wskin+"sfx\itemwarpboxexit.wav")
+replacesound("itemcrystaltap",wskin+"sfx\itemcrystaltap.wav")
 
 replacesound("specialfall",wskin+"sfx\specialfall.wav")
 replacesound("specialbump",wskin+"sfx\specialbump.wav")
