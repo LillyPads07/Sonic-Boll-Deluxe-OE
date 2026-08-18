@@ -5,6 +5,7 @@ action_id=603
 applies_to=self
 */
 active=0
+tapsnd=0
 k=0
 frame=0
 trigger=0
@@ -20,14 +21,12 @@ if (trigger!="0"){
     visible=0
     if abs(nearestplayer().x-x)<8 && trigger="1" {with (crystaltap) active=0
         if (region.water!=y-4) {
-            //if (!active) instance_create(mean(x,other.x),mean(y,other.y),kickpart)
             active=1
             if (region.water=verybignumber) region.water=region.ky
         }
     }
     if abs(nearestplayer().y-y)<8 && trigger="2" {with (crystaltap) active=0
         if (region.water!=y-4) {
-            //if (!active) instance_create(mean(x,other.x),mean(y,other.y),kickpart)
             active=1
             if (region.water=verybignumber) region.water=region.ky
         }
@@ -38,7 +37,10 @@ if (active) {
     region.water=inch(region.water,y-4,1)
     k-=1
     if (!k) {k=4 frame=(frame+1) mod 4}
-    if (region.water==y-4) active=0
+    if (region.water==y-4) {
+    active=0
+    tapsnd=0
+    }
 }
 #define Collision_player
 /*"/*'/**//* YYD ACTION
@@ -48,7 +50,11 @@ applies_to=self
 */
 with (crystaltap) active=0
 if (region.water!=y-4) {
-    //if (!active) instance_create(mean(x,other.x),mean(y,other.y),kickpart)
+    if (!tapsnd) {
+        instance_create(mean(x,other.x),mean(y,other.y),kickpart)
+        sound("itemcrystaltap")
+        tapsnd=1
+    }
     active=1
     if (region.water=verybignumber) region.water=region.ky
 }
