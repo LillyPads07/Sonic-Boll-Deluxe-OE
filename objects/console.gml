@@ -167,6 +167,7 @@ if (keyboard_check_pressed(vk_enter) && !off) {
         case "levskinreload":
         case "lskinreload":
         case "reloadlskin":
+        case "lrel":
         {
             if (global.gamemode == "timeattack") {
                 ping("You cannot use this in time attack!")
