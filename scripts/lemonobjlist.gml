@@ -1156,6 +1156,11 @@ listobj(pig          ,0,spr_pig     ,243,pig)
     listargs("align")
     listdata("0,0"  )
 
+listobj(bubble              ,0,spr_bubble           ,247,bubble)
+    listdoc("Bubble","Contains objects. Popped upon contact with players.")
+    listargs("content","nogt")
+    listdata("coin","")
+
 //LOAD MODDED OBJECTS
 var size, key, _mapid, lemonmap;
 size = ds_map_size(global.objectlemonlist);

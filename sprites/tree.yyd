@@ -491,6 +491,7 @@
 		|spr_undotter
 		|spr_emerald
 		|spr_3moon
+		|spr_bubble
 	+technical
 		+logicentities
 			|spr_logic_relay

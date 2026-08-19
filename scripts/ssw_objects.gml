@@ -76,6 +76,7 @@ switch (argument[0]) {
 
     case "beepblockon": {amion="on" frx=15+frame fry=24+blue w=1 h=1 break}
     case "beepblockoff": {frx=17+frame fry=24+blue w=1 h=1 break}
+    case "bubblepop": {frx=15.5+(frame*1.5) fry=7 w=1.5 h=1.5 frox=12 froy=12 break}
 }
 
 

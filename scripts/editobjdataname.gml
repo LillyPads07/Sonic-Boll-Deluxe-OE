@@ -1285,6 +1285,41 @@ switch (argument[0]) {
         }
 
     }
+
+    case bubble: {
+        if (type=0) {
+            if (i="coin"       ) return "Contains: Coin"
+            if (i="ring"       ) return "Contains: Ring"
+            if (i="mushroom"   ) return "Contains: Mushroom"
+            if (i="1up"        ) return "Contains: 1-Up Mushroom"
+            if (i="poison"     ) return "Contains: Poison Mushroom"
+            if (i="mini"       ) return "Contains: Mini Mushroom"
+            if (i="fire"       ) return "Contains: Fire Flower"
+            if (i="feather"    ) return "Contains: Feather"
+            if (i="shield"     ) return "Contains: Shield Mushroom"
+            if (i="star"       ) return "Contains: Starman"
+            if (i="shard"      ) return "Contains: Shard"
+            if (i="key"        ) return "Contains: Key"
+            if (i="card"       ) return "Contains: Card"
+            if (i="tokenw"     ) return "Contains: White Token"
+            if (i="tokenb"     ) return "Contains: Blue Token"
+            if (i="tokeng"     ) return "Contains: Green Token"
+            if (i="goomba"     ) return "Contains: Goomba"
+            if (i="goombrat"   ) return "Contains: Goombrat"
+            if (i="bob-omb"    ) return "Contains: Bob-Omb"
+            if (i="bob-ombfuse") return "Contains: Lit Bob-Omb"
+            if (i="spinyegg"   ) return "Contains: Spiny"
+            if (i="shell"      ) return "Contains: Green Shell"
+            if (i="redshell"   ) return "Contains: Red Shell"
+            if (i="yelshell"   ) return "Contains: Yellow Shell"
+            if (i="blushell"   ) return "Contains: Blue Shell"
+            if (i="beetleshell") return "Contains: Beetle Shell"
+            if (i="spinyshell" ) return "Contains: Spiny Shell"
+        }
+        if i="" return "Name of Green Token: <unset>"
+        else return "Name of Green Token: "+string(i)
+    }
+
 }
 
 if (type=1) {

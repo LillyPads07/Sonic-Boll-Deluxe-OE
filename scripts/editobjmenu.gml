@@ -1301,7 +1301,40 @@ switch (argument[0]) {
         }
     }
 
-
+    case bubble: {
+        if (type=0) {
+            i=show_contextmenu("Contents:|-|Coin|Ring|Mushroom|1-Up|Poison Mushroom|Mini Mushroom|Fire Flower|Feather|Shield Mushroom|Starman|Star Shard|Key|Card|White Token|Blue Token|Green Token|Goomba|Goombrat|Bob-Omb|Lit Bob-Omb|Spiny|Green Shell|Red Shell|Yellow Shell|Blue Shell|Beetle Shell|Spiny Shell")
+            if (!i) return argument[2]
+            if (i=1) return "coin"
+            if (i=2) return "ring"
+            if (i=3) return "mushroom"
+            if (i=4) return "1up"
+            if (i=5) return "poison"
+            if (i=6) return "mini"
+            if (i=7) return "fire"
+            if (i=8) return "feather"
+            if (i=9) return "shield"
+            if (i=10) return "star"
+            if (i=11) return "shard"
+            if (i=12) return "key"
+            if (i=13) return "card"
+            if (i=14) return "tokenw"
+            if (i=15) return "tokenb"
+            if (i=16) return "tokeng"
+            if (i=17) return "goomba"
+            if (i=18) return "goombrat"
+            if (i=19) return "bob-omb"
+            if (i=20) return "bob-ombfuse"
+            if (i=21) return "spinyegg"
+            if (i=22) return "shell"
+            if (i=23) return "redshell"
+            if (i=24) return "yelshell"
+            if (i=25) return "blushell"
+            if (i=26) return "steelshell"
+            if (i=27) return "spinyshell"
+        }
+        if (type=1) return get_string("Green Token's name:",argument[2])
+    break}
 
 }
 
