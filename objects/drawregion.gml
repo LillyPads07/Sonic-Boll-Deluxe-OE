@@ -1357,6 +1357,36 @@ with (deity) {
             draw_sprite(spr_sidegate,0,(x*16)+(real(data[2])-1)*16,y*16)
         } break
 
+        case (bubble): {
+        switch data[0] {
+            case "coin":        {draw_sprite(spr_coin,0,x*16,y*16)      break}
+            case "ring":        {draw_sprite(spr_ring,0,x*16,y*16)      break}
+            case "mushroom":    {draw_sprite(spr_mushroom,0,x*16,y*16)  break}
+            case "1up":         {draw_sprite(spr_1up,0,x*16,y*16)       break}
+            case "poison":      {draw_sprite(spr_poison,0,x*16,y*16)    break}
+            case "mini":        {draw_sprite(spr_mushsmall,0,x*16,y*16) break}
+            case "fire":        {draw_sprite(spr_flower,0,x*16,y*16)    break}
+            case "feather":     {draw_sprite(spr_feather,0,x*16,y*16)   break}
+            case "shield":      {draw_sprite(spr_shield,0,x*16,y*16)    break}
+            case "star":        {draw_sprite(spr_starman,0,x*16,y*16)   break}
+            case "shard":       {draw_sprite(spr_shard,0,x*16,y*16)     break}
+            case "key":         {draw_sprite(spr_key,0,x*16,y*16)       break}
+            case "card":        {draw_sprite(spr_card,0,x*16,y*16)      break}
+            case "tokenw":      {draw_sprite(spr_token,0,x*16,y*16)     break}
+            case "tokenb":      {draw_sprite(spr_token,1,x*16,y*16)     break}
+            case "tokeng":      {draw_sprite(spr_token,2,x*16,y*16)     break}
+            case "goomba":      {draw_sprite(spr_goomba,0,x*16,y*16)    break}
+            case "goombrat":    {draw_sprite(spr_brat,0,x*16,y*16)      break}
+            case "bob-omb":     {draw_sprite(spr_bobomb,0,x*16,y*16)    break}
+            case "bob-ombfuse": {draw_sprite(spr_litbobomb,0,x*16,y*16) break}
+            case "spinyegg":    {draw_sprite(spr_spiny,0,x*16,y*16)     break}
+            case "shell":       {draw_sprite(spr_shell,0,x*16,y*16)     break}
+            case "redshell":    {draw_sprite(spr_shell,1,x*16,y*16)     break}
+            case "beetleshell": {draw_sprite(spr_shell,2,x*16,y*16)     break}
+            case "spinyshell":  {draw_sprite(spr_shell,3,x*16,y*16)     break}
+        }
+    } break
+
         case (bigitembox): {
             bigboxoffset=16
         }

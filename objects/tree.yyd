@@ -346,6 +346,7 @@
 	|finishstar
 	|fmissileexplosion
 	|drawingdummy
+	|bubblepop
 +enemies
 	|enemy
 	|goomba
@@ -490,6 +491,7 @@
 	|itemlaunch
 	|clawbase
 	|claw
+	|bubble
 +level objects
 	+collision
 		|collider
