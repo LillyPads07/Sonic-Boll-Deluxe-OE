@@ -9,11 +9,20 @@ if is_string(argument2) {
         case "collider":
         _obj = customobjectcollider
         break;
+        case "barrier":
+        _obj = customobjectbarrier
+        break;
+        case "phaser":
+        _obj = customobjectphaser
+        break;
         case "hittable":
         _obj = customobjecthittable
         break;
         case "moving":
         _obj = customobjectmoving
+        break;
+        case "movingphaser":
+        _obj = customobjectmovingphaser
         break;
         default: _obj = customobject break;
     }
