@@ -447,6 +447,7 @@
 	|litbobomb
 	|pig
 +items
+	|redcoinring
 	|item
 	|itemdrop
 	|coin

@@ -9,6 +9,7 @@ fr=global.frame
 ffr4=global.fastframe4
 fr8=global.frame8
 fr88=global.frame88
+itemframe=global.itemframe
 
 frox=0 froy=0 frx=0 fry=0 w=1 h=1 xsc=1 ysc=1 plat=0
 switch (argument[0]) {
@@ -37,6 +38,7 @@ switch (argument[0]) {
     case "axe": {frx=22.5+fr fry=16.5 break}
     case "pollflower": {frx=0.5+frame*5 fry=30.5 w=5 h=3 froy=32 break}
     case "pollen": {frx=0.5+fr*2.5 fry=33.5 w=2.5 h=2.5 frox=17 froy=16 break}
+    case "redring": {frx=13+itemframe*1.5 fry=11.5 w=1.5 h=2.5 frox=12 froy=20 break}
 
     case "signalblock": {frx=11+(1*active)  fry=18.5 break}
 

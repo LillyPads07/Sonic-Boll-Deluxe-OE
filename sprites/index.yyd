@@ -647,3 +647,6 @@ spr_backhills
 spr_pressbutton
 spr_replaytoggle
 spr_bubble
+spr_redcoinringmask
+spr_redcoinring
+spr_nothing

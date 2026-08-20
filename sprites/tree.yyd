@@ -52,6 +52,7 @@
 	|spr_mask32c32
 	|spr_round32
 	|spr_bobradius
+	|spr_redcoinringmask
 	|spr_itemmask
 	|spr_round12
 	|spr_bromask
@@ -69,6 +70,7 @@
 	|spr_maskrex
 	|spr_rexsmallmask
 	|spr_thwompmask
+	|spr_nothing
 	|dotthing
 	|bumper_mask
 	|sonicbumper_mask
@@ -461,6 +463,7 @@
 		|spr_newslope2xL
 		|spr_newslope2x
 	+items
+		|spr_redcoinring
 		|spr_coin
 		|spr_ring
 		|spr_redring

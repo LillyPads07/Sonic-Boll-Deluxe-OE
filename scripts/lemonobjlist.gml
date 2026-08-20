@@ -1161,6 +1161,11 @@ listobj(bubble              ,0,spr_bubble           ,247,bubble)
     listargs("content","nogt")
     listdata("coin","")
 
+listobj(redcoinring         ,1,spr_redcoinring     ,248,checkpoint)
+    listdoc("Red Coin Ring","Makes red coins show up")
+    listargs("align")
+    listdata("0,0"  )
+
 //LOAD MODDED OBJECTS
 var size, key, _mapid, lemonmap;
 size = ds_map_size(global.objectlemonlist);
