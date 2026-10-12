@@ -69,11 +69,21 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if (carryreleaseevent != 0) {
+    code_execute(carryreleaseevent)
+}
+#define Other_15
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
 stepevent=ds_map_find_value(global.objectscripts,"step_"+mytype)
 stependevent=ds_map_find_value(global.objectscripts,"step_begin_"+mytype)
 stepbeginevent=ds_map_find_value(global.objectscripts,"step_end_"+mytype)
 createevent=ds_map_find_value(global.objectscripts,"create_"+mytype)
 drawevent=ds_map_find_value(global.objectscripts,"draw_"+mytype)
+carryreleaseevent=ds_map_find_value(global.objectscripts,"carry_release"+mytype)
 drawguievent=ds_map_find_value(global.objectscripts,"draw_gui_"+mytype)
 cleanupevent=ds_map_find_value(global.objectscripts,"cleanup_"+mytype)
 

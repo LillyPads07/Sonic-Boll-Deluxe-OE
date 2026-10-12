@@ -64,7 +64,8 @@ while(_folder != "") {
                     case "updatedeities":
                     case "editobjmenu":
                     case "editobjdataname":
-                    case "hitblock":
+                    case "carry_release": //letting go of carryable object
+                    case "hitblock": //hittable
                         _codestr = loopThrough(_key, _filepath)
                         if (_codestr != "") {
                             _compiled = code_compile(_codestr)
