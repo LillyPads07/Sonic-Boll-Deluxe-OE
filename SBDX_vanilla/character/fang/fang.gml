@@ -307,6 +307,8 @@ else draw_sprite_part_ext(sheet,0,owner.mediumcork_sheetx[size*owner.projcoordby
 frspd=1
 keepframebetween=0
 prevent_spr_reset=0
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (hurt) {sprite="knock"}
 else if (spindash) {sprite="spindash"}

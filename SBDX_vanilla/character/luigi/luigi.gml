@@ -217,6 +217,8 @@ draw_sprite_part_ext(sheet,0,fireball_sheetx[owner.size*owner.projcoordbysize]+1
 #define sprmanager
 frspd=1
 keepframebetween=0
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (hurt) {sprite="hurt"}
 else if (spin) {sprite="roll"}

@@ -741,6 +741,8 @@ if (event="draw") {
 
 #define sprmanager
 frspd=1
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (fired) {sprite="fire"}
 else if (swallow) {sprite="swallow" cantslowanim=1}

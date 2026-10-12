@@ -342,6 +342,8 @@ if (owner.addbde && trail) draw_set_blend_mode(0)
 
 
 #define effectsbehind
+cantslowanim=0
+
 var myvis;
 myvis = visible;
 visible = 1;

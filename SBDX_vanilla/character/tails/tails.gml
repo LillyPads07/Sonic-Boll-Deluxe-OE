@@ -560,6 +560,8 @@ if (owner.fly && !owner.piped && !owner.water) {
 
 #define sprmanager
 keepframebetween=0
+cantslowanim=0
+
 if sprite="flyfast" && !jump{
 spritekeep+=1
 if superdashactive spritekeep=1

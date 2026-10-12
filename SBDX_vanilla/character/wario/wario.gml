@@ -424,6 +424,8 @@ break
 
 #define sprmanager
 frspd=1 
+cantslowanim=0
+
 var crawlin;
 crawlin = (sprite == "crouch" || sprite == "crawl" || sprite == "crouchjump" || sprite == "crouchcarry" || sprite == "crawlcarry" || sprite="crouchjumpcarry")
 

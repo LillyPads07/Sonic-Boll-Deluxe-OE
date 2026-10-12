@@ -620,6 +620,8 @@ vsp=0
 #define sprmanager
 frspd=1
 keepframebetween=0
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (transform) {sprite="transform"}
 else if (alarm[5]) {sprite=knockspr}

@@ -304,6 +304,8 @@ if (event="draw") {
 
 #define sprmanager
 frspd=1
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (hurt) {sprite="knock"}
 else if (spindash) {if (spinchargetimer) sprite="spincharge" else sprite="spindash"}

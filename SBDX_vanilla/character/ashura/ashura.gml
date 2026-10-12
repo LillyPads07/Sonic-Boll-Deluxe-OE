@@ -388,6 +388,8 @@ if !waterdust{
 
 #define sprmanager
 frspd=1
+cantslowanim=0
+
 if (grabflagpole) {sprite="flagslide"}
 else if (transform) {sprite="transform"}
 else if (grabbedflagpole) {sprite="climb"}
