@@ -29,7 +29,7 @@ if is_string(argument2) {
     o=instance_create(argument0,argument1,_obj)
     o.mytype = objtype
     with(o) {
-        if (object_index!=customobjecthittable) {
+        if (object_index!=customobjecthittable && object_index!=customobjectenemy) {
             event_user(0);
         } else {
             event_user(5);

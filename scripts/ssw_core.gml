@@ -16,7 +16,7 @@ if (argument[0]) {//animate
     if (piped!=2) frame+=frs
     if (frame<0) frame+=frn
     if (frame>=frn) {
-        if (waittime>maxwait && tempwait) {waittime=0} 
+        if (waittime>maxwait && tempwait) {waittime=0}
         {frame=frame-frn if (frl<frn) frame+=frl}
     }
 
