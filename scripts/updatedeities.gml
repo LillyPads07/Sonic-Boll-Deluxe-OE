@@ -207,9 +207,19 @@ switch (obj) {
         find=noone
         var maxx;
         maxx=0
-        with (drawregion.deity) if (x>maxx && x<other.x && y=other.y) if (obj=cheepspawner || obj=bulletspawner || obj=bullseyespawner || obj=lakitu) {
-            maxx=x
-            find=id
+        with (drawregion.deity) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (x>maxx && x<other.x && y=other.y) if (tempobjvar="cheepspawner" || tempobjvar="bulletspawner" || tempobjvar="bullseyespawner" || tempobjvar="lakitu") {
+                maxx=x
+                find=id
+            }
         }
         point=find
     } break
@@ -222,12 +232,36 @@ switch (obj) {
     case (downpipe):
     case (theothersidepipe):
         point=noone
-        if (data[1]!="") with (drawregion.deity) if (obj=pipeblock || obj=sidepipe || obj=downpipe || obj=theothersidepipe || obj=droptarget) if (data[0]=other.data[1]) other.point=id
+        if (data[1]!="") {
+            with (drawregion.deity) {
+                var tempobjvar;
+
+                if (is_real(obj)) {
+                  tempobjvar = object_get_name(obj);
+                } else {
+                  tempobjvar = string(obj)
+                }
+
+                if (tempobjvar="pipeblock" || tempobjvar="sidepipe" || tempobjvar="downpipe" || tempobjvar="theothersidepipe" || tempobjvar="droptarget") {
+                    if (data[0]=other.data[1]) other.point=id
+                }
+            }
+        }
     break;
     case (door): {
         point=noone
         //Pointer
-        if (data[2]!="") with (drawregion.deity) if (obj=door) if (data[1]=other.data[2]) other.point=id
+        if (data[2]!="") with (drawregion.deity) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (tempobjvar="door") if (data[1]=other.data[2]) other.point=id
+        }
         //P-Door
         if (funnytruefalse(data[7])) {keyed=0 if (funnytruefalse(data[7]) == 2) frame=4 else frame=3}
         //Locked Door
@@ -239,7 +273,17 @@ switch (obj) {
     } break
     case (warpbox): {
         point=noone
-        if (data[1]!="") with (drawregion.deity) if (obj=warpbox) if (data[0]=other.data[1]) other.point=id
+        if (data[1]!="") with (drawregion.deity) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (tempobjvar="warpbox") if (data[0]=other.data[1]) other.point=id
+        }
         if (data[4]="1") {
             frame=1
             keyed=1
@@ -257,13 +301,33 @@ switch (obj) {
         var d, maxx;
         point=noone
         maxx=verybignumber
-        with (drawregion.deity) if (obj=bridge) {d=point_distance(x,y,other.x,other.y) if (d<maxx) {maxx=d other.point=id}}
+        with (drawregion.deity) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (tempobjvar="bridge") {d=point_distance(x,y,other.x,other.y) if (d<maxx) {maxx=d other.point=id}}
+        }
     } break
     case (axewall): {
         var d, maxx;
         point=noone
         maxx=verybignumber
-        with (drawregion.deity) if (obj=axe) {d=point_distance(x,y,other.x,other.y) if (d<maxx) {maxx=d other.point=id}}
+        with (drawregion.deity) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (tempobjvar="axe") {d=point_distance(x,y,other.x,other.y) if (d<maxx) {maxx=d other.point=id}}
+        }
     } break
     case (fbarblock): {
         long=(data[1]="long")
@@ -300,7 +364,17 @@ switch (obj) {
     } break
     case (lavablock): {
         frame=0
-        with (instance_position(x,y-1,object_index)) if (obj=lavablock) other.frame=1
+        with (instance_position(x,y-1,object_index)) {
+            var tempobjvar;
+
+            if (is_real(obj)) {
+              tempobjvar = object_get_name(obj);
+            } else {
+              tempobjvar = string(obj)
+            }
+
+            if (tempobjvar="lavablock") other.frame=1
+        }
     } break
     case (phaser): {
         frame=0
@@ -368,7 +442,17 @@ switch (obj) {
             var maxx;
             sub=noone
             maxx=verybignumber
-            with (drawregion.deity) if (obj=platform && x<maxx) if (data[1]="pulley_sub") {other.sub=id maxx=x}
+            with (drawregion.deity) {
+                var tempobjvar;
+
+                if (is_real(obj)) {
+                  tempobjvar = object_get_name(obj);
+                } else {
+                  tempobjvar = string(obj)
+                }
+
+                if (tempobjvar="platform" && x<maxx) if (data[1]="pulley_sub") {other.sub=id maxx=x}
+            }
             height=unreal(data[3],0)
         }
     } break
