@@ -65,8 +65,8 @@ if !(custom_sprite_exists("toppings")) {
 
 realtype=unreal(data[0],0)
 
-if realtype=0 draw_sprite_part_ext(sheet,0,52.5,36.5,16,16,(x*16),(y*16),1,1,c_white,1) 
-else draw_sprite_part_ext(sheet,0,20.5,36.5,16,16,(x*16),(y*16),1,1,c_white,1)
+if realtype=0 draw_sprite_part_ext(sheet,0,52.5,36.5,16,16,(x*16)+unreal(data[1],0),(y*16)+unreal(data[2],0),1,1,c_white,1) 
+else draw_sprite_part_ext(sheet,0,20.5,36.5,16,16,(x*16)+unreal(data[1],0),(y*16)+unreal(data[2],0),1,1,c_white,1)
 
 		 
 

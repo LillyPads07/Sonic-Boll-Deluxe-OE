@@ -87,9 +87,9 @@ with instance_create(x,y,scriptblock) {
 }
 
 with instance_create(x,y,scriptblock) {
-		scriptname="samblockdrawer"
-		event_user(0)
-	}
+	scriptname="samblockdrawer"
+	event_user(0)
+}
 		
 	
 #define step
@@ -158,12 +158,33 @@ with (warpbox) with instance_place(x,y,player) with other {
 	}
 }
 	
-	
-	
 #define lemon_display
-draw_omitext(x*16,y*16,"BOLLTOWERMANAGER")
+
+if !(custom_sprite_exists("btmanager")) {
+    sheet=add_custom_sprite(myobjdir+"lemonpal.png","btmanager",0,0,0,0);
+} else {
+	sheet=get_custom_sprite("btmanager")
+}
+
+draw_sprite(sheet,0,(x*16)-10,(y*16)-11)
+
+draw_omitext((x*16)-24,(y*16)+16,"BOLLTOWERMANAGER")
+	
+#define editobjmenu
+thedefault=argument1
+type=argument0
+
+global.cobjectreturn = "----"
+	
 	
 #define editobjdataname
-global.cobjectreturn = "";
-	
+i=string(argument1)
+type=argument0
 
+global.cobjectreturn = ""
+
+
+#define lemon_data
+switch(argument0) {
+	default: global.cobjectreturn = 0 break;
+}

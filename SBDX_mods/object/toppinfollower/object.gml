@@ -165,7 +165,7 @@ if readyfollow {
 }
 
 with (part) if toppingcagepart {
-	draw_sprite_part_ext(other.sheet,0,128+8*other.spritepart,24,8,8,x,y,1,1,c_white,1)
+	draw_sprite_part_ext(other.sheet,0,128+8*spritepart,24,8,8,x,y,1,1,c_white,1)
 }
 
 if global.debug draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.5)
