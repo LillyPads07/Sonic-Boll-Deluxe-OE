@@ -1520,6 +1520,7 @@ if (coll) {
                     if (coll.stop && !coll.kicked) doscore_p(8000)
                     else {seqcount=max(seqcount,2+scorelok1) doscore_p()}
                     if (jump) {
+						
                         if (vsp>0) {
                             vsp=-3-akey*1.5
                             canstopjump=akey
@@ -1529,7 +1530,11 @@ if (coll) {
                     kicksound(0)
                     instance_create(mean(x,coll.x),mean(y,coll.y),kickpart)
                     with (coll) {spd=max(3,abs(other.hsp)+1) hspeed=spd*esign(x-other.x,other.xsc) owner=other.id kicked=1 stop=0 phase=owner}
-                
+					
+					if (pikoball) {
+						charm_run("landing")
+					}
+					
                 exit
             } else {
                 if (coll.kicked && !coll.stop && sign(hsp)=sign(coll.hspeed) && abs(hsp)>abs(coll.hspeed)) {
@@ -1542,7 +1547,7 @@ if (coll) {
                 } else if (coll.kicked && (!coll.stop || (coll.owner!=id && coll.vspeed<0)) && (vsp<0 || !jump)) {hurtplayer("enemy") exit}
                 else {
                     with (coll) {hspeed=0 owner=noone phase=other.id stop=0 kicked=0 time=15}
-                    vsp=-3-akey*1.5 canstopjump=akey sound("enemystomp") doscore_p() if (fall=12) fall=5 exit
+                    if (!pikoball) vsp=-3-akey*1.5 canstopjump=akey sound("enemystomp") doscore_p() if (fall=12) fall=5 if (pikoball) charm_run("landing") exit
                 }
             }                    
         }
@@ -1573,7 +1578,9 @@ if (coll) {
             if (type=hopkoopa || type=redhover) seqcount=max(seqcount,1)
             if (type=hammerbro) seqcount=max(5,seqcount)
             if (fall=12) fall=5                        
-            enemystomp(coll) exit      
+			enemystomp(coll) 
+			if (pikoball) charm_run("landing")
+			exit      
         } else if (coll.vspeed<0 && coll.y>y+8) {jump=1 fall=1 vsp=-0.5 enemystomp(coll) exit}
         
         hurtplayer("enemy")   
