@@ -305,7 +305,7 @@ instance_create(x,y,kickpart)
 else if (owner.upper) {
 	sprite_index=spr_mask2x2
 	mask_index=spr_mask2x2	
-	image_xscale=12
+	image_xscale=14
 	image_yscale=16
 	x=owner.x+owner.xsc*6 
 	y=owner.y-8-min(owner.upper,16)
