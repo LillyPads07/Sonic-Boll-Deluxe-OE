@@ -458,7 +458,7 @@ if owner.size{
 	}
 }
 	
-}
+} 
 
 else 
 {y=-1000}
@@ -1648,7 +1648,7 @@ jump=1 hurt=1+starhit if (!starhit) if (shielded) {shielded=0} else {if size=3 |
 #define hitblocks
 if typeblockhit=0{
 with (blockcoll){
-if (stonebump || owner.size=0 && insted!=1 && !owner.tempkill && cracked=0) {
+if (stonebump || owner.size=0 && insted!=1 && !owner.tempkill && cracked=0 || owner.pikoball) {
     if (!goinup) {if (insted!=2) if (owner.twirl=0) owner.vsp=1.5 sound("itemblockbump") tpos=1}
 } else { 
      if (!insted) {if (owner.twirl=0) owner.vsp=1.5}
@@ -1776,6 +1776,20 @@ if (pikoball) {
 		with (monivaulter) event_user(0)
 	}
 
+	coll=instance_place(x,y+4,collider)
+	if (!collision(0,4)) {coll=noone}
+	if (coll) {
+		if (object_is_ancestor(coll.object_index,hittable)) {
+			hitblock(coll,id,1,1,1)
+		}    
+	} 
+
+	if (collision(0,vsp,1)) {
+		with shoot(x-8,y+8,psmoke,-2,-1) {friction=0.1}
+		with shoot(x+8,y+8,psmoke, 2,-1) {friction=0.1}
+	}
+	
+
 	if (!!size && size!=5) screenshake(x,4-(1*(vsp<3)))
 	y-=1
 	jump=1
@@ -1791,9 +1805,6 @@ if (pikoball) {
 	hsp=lengthdir_x(vm,vd)
 	vsp=lengthdir_y(vm,vd)
 
-	with shoot(x-8,y+8,psmoke,-2,-1) {friction=0.1}
-	with shoot(x+8,y+8,psmoke, 2,-1) {friction=0.1}
-	
 	playsfx(name+'vault')
 	
 } else {
