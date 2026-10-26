@@ -1,57 +1,43 @@
 #define spritelist
-stand,wait,lookup,pose,crouch,hurt,dead,walk,run,brake,jump,bonk,bonkbrick,fall,runjump,longjump,sideflip,doublejump,doublejumpbonk,doublejumpfall,wallslide,groundpound,slide,standcarry,lookupcarry,crouchcarry,walkcarry,jumpcarry,bonkcarry,fallcarry,doublejumpcarry,throw,airthrow,roll,poundfall,swim,paddle,swimcarry,spinjump,fire,push,balancing,bellyslide,dive,capeflight,climbing,flagslide,hanging,hangmove,grind,piping,pipingup,sidepiping,doorenter,doorexit
+stand,wait,lookup,pose,crouch,hurt,dead,walk,run,brake,jump,bonk,fall,runjump,roll,groundpound,poundfall,swim,paddle,spinjump,fire,push,balancing,climbing,flagslide,piping,pipingup,sidepiping,doorenter,doorexit
 
+//lyb here, the variable to replace with the skindata stuff is SKINSHITHERE. it gets set to 1 in the movement code so that i can actually test the stuff with it, you will want to remove that as well
 
 #define soundlist
 skid,swim,pound,stomp,smalljump,flip,spin,slide,kick,fireball,wallkick,smallwallkick,dive,spinjump,spinbounce,longjump
 
-#define movelist
-Retro Mario
-#
-[a]: Jump (ground)
-[b]: Run
-<fire>
-Retro Mario [flwr]
-#
-[a]: Jump (ground)
-[b]: Run/Fireball
-<feather>
-Retro Mario [fthr]
-#
-[a]: Jump (ground)
-[b]: Run
-
 #define rosterswap
 mario
 
-#define unlock
-unlocktext="You unlocked ##Retro Mario!" unlocktip="80 Red Rings are required to unlock this character."
+#define movelist
+Mario (SMB1)
+#
+[flwr]&[b]: Fireball
+Collect a [fthr] to swim midair!
 
-#define skininit
-var looper;
+#define rosterorder
+5
 
-//graphic offsets
-loopey=0
-looper=0
-repeat((projcoordbysize*MAXIMUMSIZESARGH)+1) {
-	if (projcoordbysize) {
-		looper=string(loopey)
-	} else {looper=""}
 
-	fireball_sheetx[loopey]=nozerounreal(playerskindat(p2,name+" fireball graphic x"+looper),10) 
-	fireball_sheety[loopey]=nozerounreal(playerskindat(p2,name+" fireball graphic y"+looper),87) 
-
-	loopey+=1
-}
+#define effectsbehind
+with (carryid) {hspeed=0 event_user(1)}
+//draw_skintext(floor(x),floor(y)-40,slobal)
+//draw_skintext(floor(x)-string_length(string(crouch))*4,floor(y)-32,crouch)
+//draw_skintext(floor(x)-string_length(string(jump))*4,floor(y)-24,jump)
 
 #define grabflagpole
 grabflagpole=1
 hsp=0
 vsp=0
+auto=1
 
 #define start
 mask_set(12,12)
 global.animatePrincess=1
+shittwirl=funnytruefalse(playerskindat(p2,name+" midspin"))
+poundin=funnytruefalse(playerskindat(p2,name+" groundpound"))
+luigimode=funnytruefalse(playerskindat(p2,name+" luigimode"))
+
 
 #define stop
 if (skidding) {soundstop(name+"skid") skidding=0}
@@ -70,12 +56,18 @@ if (type="jumprefresh") {
     mc=0
     itemget=1
 }
+else if (type="1up") {
+    sound("item1up")
+    itemc+=1
+	global.lifes+=1
+	deaths=max(0,deaths-1)
+	itemget=1
+} 
 com_item()
 
 #define endofstage
 right=1
 akey=(push || (jump && akey) || !collision(16,8))
-test=true
 
 #define projectile
 if (event="create") {
@@ -93,9 +85,6 @@ exploding=0
 exploframe=0
 visible=1
 depth=-1;
-fireball_sheetx=owner.fireball_sheetx
-fireball_sheety=owner.fireball_sheety
-
 playsfx(owner.name+"fireball")
 }
 
@@ -179,10 +168,10 @@ vspeed=0
 if (event="draw") {
 if exploding=0
 {
-draw_sprite_part_ext(sheet,0,fireball_sheetx[owner.size*owner.projcoordbysize]+17*frame,fireball_sheety[owner.size*owner.projcoordbysize]+17,16,16,round(x-12*xsc),round(y-8),xsc,1,$ffffff,1)
+draw_sprite_part_ext(sheet,0,10+17*frame,104,16,16,round(x-12*xsc),round(y-8),xsc,1,$ffffff,1)
 } else
 {
-draw_sprite_part_ext(sheet,0,fireball_sheetx[owner.size*owner.projcoordbysize]+17*floor(exploframe/1.333333333),fireball_sheety[owner.size*owner.projcoordbysize],16,16,round(x-12*xsc),round(y-8),xsc,1,$ffffff,1)
+draw_sprite_part_ext(sheet,0,10+17*floor(exploframe/1.333333333),87,16,16,round(x-12*xsc),round(y-8),xsc,1,$ffffff,1)
 }
 }
 
@@ -190,8 +179,6 @@ draw_sprite_part_ext(sheet,0,fireball_sheetx[owner.size*owner.projcoordbysize]+1
 #define sprmanager
 frspd=1
 keepframebetween=0
-cantslowanim=0
-
 if (grabflagpole) {sprite="flagslide"}
 else if (hurt) {sprite="hurt"}
 else if (dive) {sprite="dive"}
@@ -210,12 +197,12 @@ sprite="climbing" frspd=sign(left+right+up+down)
 }
 else if (fall=6) {sprite="hurt"}
 else if (flight) {sprite= "capeflight" frspd=0 frame=((vsp+2.5)/6.5)*(global.animdat[p2,(16+128*32)+1+min(4,size)]-1) if frame>=frn frame=frn-1}
-else if (spinjump) {sprite="spinjump"}
+else if (spinjump || twist>17) {sprite="spinjump"}
 else if (hang && vsp>=1 && !spinjump) {sprite="wallslide"}
 else if ((double || triplejump>=1) && !water) { if carry {sprite="jump" if (vsp>0) sprite="fall"} else sprite="roll" frspd=0.4}
 else if (triplejump>=0.5 && !water) {sprite="doublejump" if vsp>0 sprite="doublejumpfall"}
-else if (water) {sprite="swim" if (swim) sprite="paddle"}
-else if (bonk) {sprite="bonk" if (bonkbrick && !carry) sprite="bonkbrick" if (jumpspd=99) || triplejump>=0.5 sprite="doublejumpbonk"} 
+else if (water || size=3) {sprite="swim" if (swim) sprite="paddle"}
+else if (bonk) {sprite="bonk" if (jumpspd=99) || triplejump>=0.5 sprite="doublejumpbonk"} 
 else {sprite="jump" if (vsp>0) sprite="fall" if (jumpspd=99) sprite="doublejump" if (!carry && runjump) sprite="runjump"}
 } else {
 if (push!=0 && !carry) {sprite="push" frspd=1+abs(hsp/3)}
@@ -234,13 +221,12 @@ frspd=median(0.5,1,0.3+abs(hsp/4))
 }
 }
 }
-if (carry) if (sprite!="doublejump" && sprite!="doublejumpbonk" && sprite!="doublejumpfall" && sprite!="runjump" && sprite!="roll" && sprite!="wallslide") sprite=sprite+"carry"
+if (carry) sprite=sprite+"carry"
 
 #define controls
 com_inputstack()
 
 tempbrick=0
-luijump-=1
 carryoffsetx=10
 carryoffsety=5
 
@@ -284,28 +270,25 @@ if (h!=0 && !wallkick) {
             xsc=h
         }
     } else {
-        if (!jump) {
-            if (sign(hsp)!=h) {
-                if (abs(hsp)>2 && !carry) {
-                    braking=1
-                    skidding=1
-                    playsfx(name+"skid",1)
-                    brakedir=h
-                }
-                hsp+=(0.44-0.175*!water+0.04*(abs(hsp)<1))*wf*h
-                if (abs(hsp)<0.5 || carry && !spin) xsc=h
-            } else {
-                hsp+=(0.06+0.04*(abs(hsp)<0.5))*wf*h
-                xsc=h
-                braking=0
-            }
-        } else {
-            if (water) {if (h!=sign(hsp)) hsp+=0.1*h else hsp+=0.0475*h}
-            else if (dropkick) hsp+=0.1*wf*h
-            else if (size==5) hsp+=0.085*wf*h
-            else hsp+=(0.07+0.02*runvar)*wf*h
-            if (!hang && !wallkick && !twist && !spin) xsc=h
-        }
+		if (!jump) {
+			if (sign(hsp)!=h) {
+				if (abs(hsp)>2) {
+					braking=1
+					brakedir=h
+					skidding=1
+					playsfx(name+"skid",1)
+				}
+				hsp+=(0.33-0.175*!water+0.04*(abs(hsp)<1))*wf*h
+				if (abs(hsp)<0.5) xsc=h
+			} else {
+				hsp+=(0.06+0.06*(abs(hsp)<1))*wf*h
+				xsc=h
+				braking=0
+			}       
+		} else {
+		hsp+=(0.06+0.06*(abs(hsp)<1))*wf*h
+		}
+        
     }
 }
 
@@ -313,9 +296,9 @@ if (push!=h) push=0
 
 com_di()
 
-if ((abut || jumpbufferdo) && !springin && !grabflagpole) {
-    if (!jump || water ||fall=69) {
-        if (water) {
+if ((abut || jumpbufferdo) && !springin) {
+    if (!jump || water || size=3 ||fall=69||grabflagpole) {
+        if (water || size=3) {
 			if (!pound && !carry && !dive ){
 				vsp=-1.5-up*0.75 swim=24 crouch=0 playsfx(name+"swim") double=0
 				if (sprite="paddle") frame=0
@@ -330,17 +313,14 @@ if ((abut || jumpbufferdo) && !springin && !grabflagpole) {
             
 			if (spin) {vsp=-1 instance_create(x,y+12,smoke)}
             else {vsp=-(4.7+min(1,abs(hsp)/8)+!!poundjump+triplejump) hellothisisajump=1}
-			grabflagpole=0
-            latchedtoflagpole=0
-		   if (water) vsp=-sqrt(sqr(vsp)*wf+2)
+		   if (water || size=3) vsp=-sqrt(sqr(vsp)*wf+2)
         }
-		
+		if !crouch {cancrouch=0} else {cancrouch=1}
         if (poundjump) {springsmoke(x,y+8) crouch=0}
 		bellyslide=0
         jumptiming=0
         onvine=0
         jump=1
-        if (size==7) luijump=9
 		if (run && energy=maxe && abs(hsp+hyperspeed)>3) {runjump=1}
         fall=0
         dropkick=0
@@ -363,6 +343,10 @@ if ((abut || jumpbufferdo) && !springin && !grabflagpole) {
             canstopjump=1
         }
         
+        if (shittwirl) {
+        	if (jump && !crouch && !twist && !dive && vsp>-3 && !spinjump && !slidejump) {sxsc=xsc twist=25 jumpspd=0 playsfx(name+'flip') vsp=min(vsp,0)}
+        }
+        
         if (super && !crouch && !flying && fall!=6 && !float && ((abs(hsp)>2 && (vsp)<0) || fly)) {
             fly=1
             vsp=-3
@@ -375,29 +359,6 @@ if ((abut || jumpbufferdo) && !springin && !grabflagpole) {
     }
 }
 
-//longjump
-if (cbut) && !(carry) && (!jump){
-	if (crouch && hsp!=0 && !water) {
-		playsfx(name+"longjump")
-		_longjump=1 
-		run=1.5 
-		triplejump=0 
-		vsp=-4
-		hsp+=1*xsc
-		bellyslide=0
-        jumptiming=0
-        onvine=0
-        jump=1
-        luijump=6
-        fall=0
-        dropkick=0
-        braking=0
-        canstopjump=1
-        if (mymoving) hsp+=avgmovingh
-        jumpspd=min(1,0.5+abs(hsp)/5)
-		hellothisisajump=1
-	}
-}
 
 if (!jump) {
     if (jumptiming) jumptiming-=1
@@ -410,66 +371,25 @@ if (akey) {
     if (jumpbuffer) jumpbuffer-=1
 } else {
     jumpbuffer=0
-    if (canstopjump=1 && jump && vsp<-2 && !sprung && !water) {
+    if (canstopjump=1 && jump && vsp<-2 && !sprung && !water && size!=3) {
         vsp*=0.6
     }
 canstopjump=0
-    if !ckey luijump=0
 }
 
 if (bbut) {
     if (size=2 && count_projectiles()<2 && !crouch && !dive) {
         fire_projectile(x+8*xsc,y+2)
-        //fired=8
-		fired=firelength
+        fired=8
         if (sprite="fire") frame=0
     }
 }
 
 if (bkey) {
     if (!jump && !bellyslide) run=1.5
-} else {
-    if (carry) {
-        updatecarry()
-        if (!down) {throw=16 instance_create(carryid.x,carryid.y,kickpart) sound("enemykick")}
-        with (carryid) event_user(0)
-        carryid=noone
-        carry=0
-    }
-}
+} 
 
 if (cbut) {
-    if (!carry) {
-		if (!jump && !spin && !_longjump) {	
-			bellyslide=0
-			jump=1
-            luijump=7
-			fall=0
-			spinjump=1
-			jumpspd=0
-			crouch=0
-			playsfx(name+"spinjump")
-			vsp=-(4.2+min(1,abs(hsp)/8))
-        }
-        else if (!dive && (pound || spin || !crouch) && !_longjump && !onvine) {
-			instance_create(x,y,smoke)
-			bellyslide=0
-            jump=1
-            pound=0
-            dive=1
-            spin=0
-            dropkick=0
-            spinjump=0
-            crouch=0
-            run=1.5
-            runvar=1.5
-            playsfx(name+"dive")
-            vsp=-2.7
-            hsp=3.5*(esign(right-left,xsc))
-			xsc=esign(right-left,xsc)
-            hellothisisajump=0
-        }
-    }
 }
 
 if (ckey) {
@@ -483,21 +403,18 @@ if (ckey) {
 
 //crouching
 if (down && !up) {
-    if (jump) {
-        if (!carry && fall!=6 && !dive && !pound && !poundlok && fall!=69) {
+	if (poundin && jump && !carry && fall!=6 && !dive && !pound && !poundlok && fall!=69) {
             pound=1
 			nocratebounce=1
-            if (water) seqcount=1
+            if (water || size=3) seqcount=1
             slidejump=0
             dropkick=0
             spinjump=0
             playsfx(name+"pound")
         }
-    } else if (!braking) {
-        if (slobal!=0 && !carry) {
-            slipnslide=1
-        } else {
-            crouch=1           
+	if (!braking) {
+        if (cancrouch && size>0 && size!=5) {
+            crouch=1    
         }
     }
     poundlok=1
@@ -523,21 +440,25 @@ else mask_set(12,24)
 #define movement
 if (piped || move_lock) exit
 
+if (auto) {hsp=1}
+
 //speed limits
 if ((loose && !jump) || (crouch && !jump)) {
 if (braking) xsc=brakedir
 braking=0
-frick=0.09
+if (luigimode) frick=0.035
+else frick=0.09
+
 if (slipnslide) frick=0.01
 if !flight hsp=max(0,abs(hsp)-frick)*sign(hsp)
 }
 
-maxspd=(1.5+runvar+(_longjump*0.8)+water+(size==5)*0.55+slipnslide+!!spin)*(wf+((carry/2)*underwater()))
+if (toadmode) {
+maxspd=(1.2+runvar*1.7+(_longjump*0.8)+water+(size==5)*0.55+slipnslide+!!spin)*(wf+((carry/2)*underwater()))
 if (abs(hsp)>maxspd) hsp=(abs(hsp)*2+maxspd)/3*sign(hsp)
-
-if (pound) {
-vsp=min(6,vsp)
-} else vsp=min(7+downpiped,vsp)
+} else
+maxspd=(1.2+runvar*1.2+(_longjump*0.8)+water+(size==5)*0.55+slipnslide+!!spin)*(wf+((carry/2)*underwater()))
+if (abs(hsp)>maxspd) hsp=(abs(hsp)*2+maxspd)/3*sign(hsp)
 
 ///movement
 //hi moster here dont uncomment the yground or easyground stuff because its required for the cool new slope system to work
@@ -602,17 +523,17 @@ if (jump) {
 		if (pound<14) {vsp=0}
 		else if (underwater() && carry) {vsp=approach_val(vsp,0,0.075)}
 		else if (pound>=14 && pound<15) {vsp=6*wf}
-		else if (water) {vsp-=0.1*wf if (vsp<1.5) {pound=0}}
+		else if (water || size=3) {vsp-=0.1*wf if (vsp<1.5) {pound=0}}
 		else {vsp+=0.375*wf}
 	}
-	else if (vsp<-2 && !luijump) vsp+=0.15
-	else if (water) vsp=min(1.5,vsp+0.04)
+	else if (vsp<-2) vsp+=0.15
+	else if (water || size=3) vsp=min(1.5,vsp+0.04)
 	else if (twist>5) vsp=min(1,vsp+0.1)
-	else if fall!=69 && !flight && !luijump {
+	else if fall!=69 && !flight {
 		vsp=min(4,vsp+0.25)
 		if size==5 && vsp>-0.75 vsp-=0.175
 	} 
-	if (!hurt) vine_climbing() 
+	vine_climbing() 
 	if (onvine) {
 		dive=0
 		pound=0
@@ -621,8 +542,7 @@ if (jump) {
 		spinjump=0
 		triplejump=0
 	}
-	if (!flight && akey && size=3) {if vsp>2 vsp=2}
-	if (hang>0 && vsp>1 && !spinjump && !water) vsp=1.5
+	if (hang>0 && vsp>1 && !spinjump && !water && size!=3) vsp=1.5
 
 	if (skidding) {soundstop(name+"skid") skidding=0}
 	braking=0
@@ -679,6 +599,8 @@ com_actions()
 
 weight=0.5+0.5*!!size
 bartype=1
+
+if size!=3 watering=0
 
 if jump&&triplejump>=1&&size=3&&vsp>=0&&akey&&!carry{
 	if hsp=0 hsp=sign(xsc)*0.01
@@ -817,7 +739,7 @@ if (underwater()) {
 		jumpspd=1
 		dropkick=0
 	}
-	water=1 wf=0.45 eoll=0 dropkick=0 run=0 kicked=0
+	water=1 wf=0.45 eoll=0 dropkick=0 run=0
 	if (carry && carryid) {
 		if !(jump) jump=1
 		
@@ -862,7 +784,6 @@ watrlock=max(0,watrlock-1)
 throw=max(0,throw-1)
 hang=max(0,hang-1)
 swim=max(0,swim-1)
-poundjump=max(0,poundjump-1)
 wsk=(wsk+0.1) mod 4
 if (spin) spinframe+=1
 else spinframe=0
@@ -882,6 +803,7 @@ if (fall=6 && sign(hsp)=xsc) fall=1
 if (rise!=0) {crouch=1 hsp=0 xsc=rise risec+=1 if (risec=10) {risec=0 rise=0 crouch=down}}
 sprung=0
 if (slipnslide) {
+slipnslide=0
 crouch=1
 if ((slobal=0 && (hsp=0 || ((left || right) && !down))) || jump) && (!collision(0,-12) || !size || size==5) {slipnslide=0 crouch=0}
 }
@@ -894,14 +816,13 @@ spinball+=1 if (spinball=16) {spinball=0
 if (count_projectiles()<2 && !poundcancel && size=2 && !pound && !carry) {
 ballspin=!ballspin
 i=fire_projectile(x+8*ballspin,y+2)
-//fired=8
-fired=firelength
+fired=8
 i.hspeed=-4+8*ballspin
 }
 }
 }
 
-if (jump && size==7 && global.fastframe4 != ff4prev) {ff4prev = global.fastframe4 with instance_create(x, y, afterimagenoblend) {event_user(0) alphadecay=1 alarm[0] = 24 maxalarm = 24 maxalpha=0.8}}
+
 
 
 jesus=(((boost && vsp<4)||(size==5 && !down && abs(hsp)>2.8)) && !water)
@@ -924,7 +845,6 @@ jesus=(((boost && vsp<4)||(size==5 && !down && abs(hsp)>2.8)) && !water)
 
 com_endactions()
 
-
 #define enemycoll
 coll=noone extracheck=id inst=0
 if (insta) {extracheck=myhitbox inst=1}
@@ -940,7 +860,6 @@ with (enemy) if (phase!=other.id && !lock && !carry)
 
 if (coll) {
     if (!coll.damage_player_on_contact) {
-    if ((hsp*xsc)>=2 && !carry) {triplejump+=0.5}  
     
         calcfall=fall
         if (fall=5 || fall=12) calcfall=0
@@ -1014,11 +933,7 @@ if (coll) {
             if (coll.type="spiny" && (coll.vspeed-vsp)*coll.ysc<0) {
                 hurtplayer("enemy") exit
             } else if (!coll.kicked || (coll.stop && (coll.owner=id || coll.vspeed>=0))) {
-                if (bkey && !carry && !spin && !dropkick && !dive) {
-                    coll.carry=id coll.owner=id coll.alarm[1]=600 coll.alarm[2]=-1 carryid=coll
-                    carry=1
-    skidding=0
-                } else { 
+                { 
                     if (coll.stop && !coll.kicked && size!=5) doscore_p(8000)
                     else if size!=5 {seqcount=max(seqcount,2+scorelok1) doscore_p()}
                     if (jump) {
@@ -1092,8 +1007,9 @@ if (coll) {
         } else if (coll.vspeed<0 && coll.y>y+8) {if size==5 {playsfx(name+"smalljump",0,3.6) vsp=-3-akey*1.5 canstopjump=akey exit} else {jump=1 fall=1 dive=0 vsp=-0.5 enemystomp(coll) exit}} //boll team watching me paste this same line 12 times like an idiot:
         
         hurtplayer("enemy")   
-    } else if (!star && !flash) hurtplayer("enemy")
+    } else hurtplayer("enemy")
 }    
+
 
 #define hurt
 pipe=0
@@ -1116,7 +1032,6 @@ dive=0
 oldsize=size
 jumpbuffer=0
 hyperspeed=0
-luijump=0
 hp=0
 star=0
 if (super) stopsuper()   
@@ -1182,7 +1097,6 @@ else {
             playsfx(name+"stomp")         
             shoot(x-8,y+4,psmoke,-2,-1)
             shoot(x+8,y+4,psmoke,2,-1)    
-            poundjump=16
         }
     }
 }
@@ -1235,20 +1149,20 @@ hyperspeed=0
 
 
 #define landing
+cancrouch=1
 hang=0   
 kicked=0
 braking=0
 double=0
 flight=0
 _longjump=0
-if (hellothisisajump) jumptiming=6
-hellothisisajump=0
 if spin{spin=0}
 
 spinjump=0
     if (dive && ckey) {bellyslide=1}
     else {
         dropkick=0
+        if (((right-left=sign(hsp) || hsp=0) && (left || right)) && down && !pound && !water && !carry && !crouch && !_longjump) {spin=0 crouch=0 xsc=(right-left) playsfx(name+"kick")}
     }
 dive=0
 
@@ -1273,7 +1187,6 @@ if (pound) {
         playsfx(name+"stomp")         
         shoot(x-8,y+4,psmoke,-2,-1)
         shoot(x+8,y+4,psmoke,2,-1)    
-		poundjump=16
     }
 	with (itembox) if (instance_place(x,y-max(4,other.vsp),other.id)) {
 		go=1    
