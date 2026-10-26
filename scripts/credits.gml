@@ -29,10 +29,10 @@ list[l]="LeEpicPasta" l+=1
 list[l]="SuperSani24" l+=1
 list[l]="ScarlyNight" l+=1
 list[l]="GoldenB4" l+=1
-list[l]="Nathan Silver" l+=1
+list[l]="DaOrangeBoi" l+=1
 list[l]="sunnisydedown" l+=1
 list[l]="MosterSMTH" l+=1
-list[l]="BonesMilk" l+=1
+list[l]="Reinaweyy" l+=1
 list[l]="Chearii" l+=1
 list[l]="chopp" l+=1
 list[l]="shoujosystem" l+=1
