@@ -1,5 +1,5 @@
 #define spritelist
-stand,wait,lookup,pose,crouch,hurt,dead,walk,run,brake,jump,bonk,fall,runjump,roll,groundpound,poundfall,swim,paddle,spinjump,fire,push,balancing,climbing,flagslide,piping,pipingup,sidepiping,doorenter,doorexit
+stand,wait,lookup,pose,crouch,hurt,dead,walk,run,brake,jump,bonk,fall,runjump,roll,groundpound,poundfall,swim,paddle,spinjump,fire,push,balancing,climbing,flagslide,growing,piping,pipingup,sidepiping,doorenter,doorexit
 
 //lyb here, the variable to replace with the skindata stuff is SKINSHITHERE. it gets set to 1 in the movement code so that i can actually test the stuff with it, you will want to remove that as well
 

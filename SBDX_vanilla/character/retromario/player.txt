@@ -34,7 +34,7 @@ single sheet=true
 singlesheet split width=8,8,8,8
 singlesheet split height=0,35,70,105
 
-custom sprite list=stand,crouch,dead,walk,brake,jump,swim,paddle,fire,climbing
+custom sprite list=stand,crouch,dead,walk,brake,jump,swim,paddle,fire,climbing,growing
 
 connect stand=true
 connect crouch=true
@@ -46,6 +46,7 @@ connect swim=true
 connect paddle=true
 connect fire=true
 connect climbing=true
+connect growing=true
 
 reroute wait=stand
 reroute pose=stand
