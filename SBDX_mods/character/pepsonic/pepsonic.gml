@@ -294,6 +294,13 @@ itemget=1
 tv_collect=30
 combo+=1
 }
+
+if (type="treasure") {
+	combo+=1
+	tv_collect=30
+	doscore_p(1000)
+}
+
 #define effectsbehind
 if (abs(hsp)>(maxspd-0.1) && runspd>=1.46 && !piped) {
     draw_sprite_part_ext(sheets[size],0,227+40*floor((efxframe)),46,39,39,round(x-19.5*xsc),round(y-22)+4,xsc,1,$ffffff,alpha)

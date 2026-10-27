@@ -63,9 +63,9 @@ if instance_place(x,y,player) {
 
 	
 #define draw
-lookxsc=1
+lookxsc=-1
 if instance_exists(player) && !dead {
-	lookxsc=sign(player.x-x)   
+	lookxsc=esign(player.x-x,-1)
 }
 
 draw_sprite_part_ext(sheet,0,4+64*dead,4,64,112,x-64*lookxsc+64*(lookxsc==1),y,lookxsc,1,c_white,1)
@@ -82,7 +82,7 @@ if !(custom_sprite_exists("bigsamba")) {
 
 lookxsc=1
 if instance_exists(lemongrab){
-	lookxsc=sign(lemongrab.spawnx-x)   
+	lookxsc=esign(lemongrab.spawnx-x,-1)   
 }
 
 draw_sprite_part_ext(sheet,0,4,4,64,112,(x*16+16)-32*lookxsc+unreal(data[1],0),(y*16)-48,lookxsc+unreal(data[2],0),1,c_white,1)
