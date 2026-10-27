@@ -1894,7 +1894,6 @@ dash=0
 
 
 #define exitpipe
-
 mask_reset()
 
 #define customhud
