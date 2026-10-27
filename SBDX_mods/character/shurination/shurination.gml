@@ -290,6 +290,13 @@ hit=1
 itemget=1
 tv_collect=30
 }
+
+if (type="treasure") {
+	combo+=1
+	tv_collect=30
+	doscore_p(1000)
+}
+
 #define effectsfront
 if (hammerslam && !bounced) {
 	draw_sprite_part_ext(sheets[size],0,64+(floor(bubbleframe) mod 4)*40,46,39,39,round(x-19.5*xsc),round(y-19.5+dy+4*!size)+4,xsc,1,$ffffff,alpha)

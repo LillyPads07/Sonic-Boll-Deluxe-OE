@@ -26,9 +26,9 @@ if !imfollow {
 	with instance_place(x,y,player) {
 			other.imfollow=1
 			sound("itemtoppin")
-			if (!follower) {follower=other.id last=other.id}
-			else {other.follower=follower follower.follow=other.id follower=other.id}
-			other.follow=id
+			if (!topfollower) {topfollower=other.id toplast=other.id}
+			else {other.topfollower=topfollower topfollower.topfollow=other.id topfollower=other.id}
+			other.topfollow=id
 			other.owner=id
 			
 			with other {
@@ -84,7 +84,7 @@ if imfollow && !readyfollow {
 		list[pos,1]=y
 	}
 
-	follower=noone
+	topfollower=noone
 
 	jump=0
 	xsc=1
@@ -94,11 +94,20 @@ if imfollow && !readyfollow {
 	bob=0
 	posbob=0
 
+	//gerome secretly spawns a key 
+	if (realtype==5) {
+		with instance_create(x,y,keyfollow) {
+			owner=other.owner
+			follow=other.owner.id
+			visible=false
+		}
+	}
+
 	readyfollow=1
 }
 
 if readyfollow {
-	if (!instance_exists(owner) || !instance_exists(follow)) {instance_create(x,y,smoke) instance_destroy() exit}
+	if (!instance_exists(owner) || !instance_exists(topfollow)) {instance_create(x,y,smoke) instance_destroy() exit}
 
 	if (owner.hold=id) exit
 
@@ -108,25 +117,25 @@ if readyfollow {
 	image_xscale=1
 
 	if (abs(x-follow.x)>8 || abs(bbox_bottom-follow.bbox_bottom)>14 || !(grounded || instance_position(x,y+9,collider)) || walled) {
-		list[pos,0]=follow.x
-		list[pos,1]=follow.bbox_bottom-6
-		list[pos,2]=follow.depth
+		list[pos,0]=topfollow.x
+		list[pos,1]=topfollow.bbox_bottom-6
+		list[pos,2]=topfollow.depth
 		pos=(pos+1) mod (6-3*!!owner.piped)
 		posbob+=0.4
 	} else if (!grounded) {
 		list[pos,1]+=1
-		list[pos,0]+=sign(list[pos,0]-follow.x)
-		x+=sign(x-follow.x)
+		list[pos,0]+=sign(list[pos,0]-topfollow.x)
+		x+=sign(x-topfollow.x)
 	}
 
 	if (!grounded) bob=0
 
 	x=mean(x,x,list[pos,0]+6*sign(x-owner.x)*!!grounded*!walled)
 	y=mean(y,list[pos,1])  
-	if (point_distance(x,y,follow.x,follow.y)>100) {
+	if (point_distance(x,y,topfollow.x,topfollow.y)>100) {
 		instance_create(x,y,smoke)
-		x=follow.x
-		y=follow.y
+		x=topfollow.x
+		y=topfollow.y
 		for (pos=0;pos<6;pos+=1) {
 			list[pos,0]=x
 			list[pos,1]=y            
@@ -137,7 +146,7 @@ if readyfollow {
 	bob=(bob*9+abs(x-xprevious)*1.5)/10     
 	depth=list[pos,2]
 	k=id
-	do {k=k.follow depth+=0.1} until (k=owner || depth>5)
+	do {k=k.topfollow depth+=0.1} until (k=owner || depth>5)
 	if (owner.piped) depth=owner.depth
 	if (abs(x-xp)>4) {xp=x xsc=esign(x-xp,xsc)}
 	frc+=1 if (frc=30) {frc=0 frame=!frame}
@@ -150,11 +159,11 @@ if readyfollow {
 	if realtype!=5 {
 		xsc=owner.xsc
 		if owner.hsp=0 draw_sprite_part_ext(sheet,0,112,24*realtype,16,24,x-(8*xsc),y-16,xsc,1,c_white,1)
-		else draw_sprite_part_ext(sheet,0,64+16*(global.frame mod 3),24*realtype,16,24,x-(8*xsc),y-16,xsc,1,c_white,1)
+		else draw_sprite_part_ext(sheet,0,64+16*(global.frame mod 3),24*realtype,16,24,floor(x)-(8*xsc),floor(y)-16,xsc,1,c_white,1)
 	} else {
 		xsc=owner.xsc 
-		if owner.hsp=0 draw_sprite_part_ext(sheet,0,32,40,32,40,x-16,y-32,1,1,c_white,1)
-		else draw_sprite_part_ext(sheet,0,0+32*(global.frame mod 2),80,32,40,x-(16*xsc),y-32,xsc,1,c_white,1)
+		if owner.hsp=0 draw_sprite_part_ext(sheet,0,32,40,32,40,floor(x)-16,floor(y)-32,1,1,c_white,1)
+		else draw_sprite_part_ext(sheet,0,0+32*(global.frame mod 2),80,32,40,floor(x)-(16*xsc),floor(y)-32,xsc,1,c_white,1)
 	}
 } else {
 	if realtype!=5 {

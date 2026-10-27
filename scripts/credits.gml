@@ -64,7 +64,7 @@ contributors[z]="nekonesse" z+=1
 contributors[z]="MosterSMTH" z+=1
 contributors[z]="SuperSani24" z+=1
 contributors[z]="Poker500" z+=1
-contributors[z]="ChristianJ32307" z+=1
+contributors[z]="Christine32307" z+=1
 contributors[z]="todadoat" z+=1
 var v;
 cont_final=""
@@ -120,7 +120,7 @@ Emília - -S- - Flareguy
 nekonesse - -S-
 MosterSMTH - Scarf
 SuperSani24 - BonesMilk
-Christian32307 - zulc22
+Christine32307 - zulc22
 Chearii - DrgnBeauty
 Floogle - Symbolcom
 
@@ -132,11 +132,11 @@ MotorRoach - dajumpjump
 GoldenB4 - CyanideJam
 scarf - sunnisydedown
 BonesMilk - ArcanePool
-azumadeline - Nathan Silver
-WildCard74 - Just Kam
-Bedoop! - Myllie
-Harold - Fuzzy Cactus
-Mr Gandy - MiwwieUwU
+azumadeline - WildCard74
+Just Kam - Bedoop!
+Myllie - Harold
+Fuzzy Cactus - Mr Gandy - MiwwieUwU
+
 
 
 [Level Design]
@@ -144,7 +144,7 @@ Mr Gandy - MiwwieUwU
 Emília - nekonesse
 CyanideJam - dajumpjump
 ArcanePool - MosterSMTH
-Christian32307 - GoldenB4
+Christine32307 - GoldenB4
 -S- - Flareguy - Carbo64
 
 

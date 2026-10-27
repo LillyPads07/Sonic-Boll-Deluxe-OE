@@ -226,11 +226,22 @@ applies_to=self
 if (name == "reset") {
     spr = spr_recoverchar
 } else {
-    if file_exists(global.moddata+"character\"+string(name)+"\"+string(name)+"-basic.png")
-        spr=sprite_add(global.moddata+"character\"+string(name)+"\"+string(name)+"-basic.png",0,1,0,0,0)
-    else if file_exists(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-basic.png")
-        spr=sprite_add(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-basic.png",0,1,0,0,0)
 
+   if file_exists(global.moddata+"character\"+string(name)+"\"+string(name)+"-emblem.png") {
+        spr=sprite_add(global.moddata+"character\"+string(name)+"\"+string(name)+"-emblem.png",0,1,0,0,0)
+        hasemblem=1
+   }
+    else if file_exists(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-emblem.png") {
+        spr=sprite_add(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-emblem.png",0,1,0,0,0)
+        hasemblem=1
+    }
+
+    if (!hasemblem) {
+        if file_exists(global.moddata+"character\"+string(name)+"\"+string(name)+"-basic.png")
+            spr=sprite_add(global.moddata+"character\"+string(name)+"\"+string(name)+"-basic.png",0,1,0,0,0)
+        else if file_exists(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-basic.png")
+            spr=sprite_add(global.workdir+"SBDX_mods\character\"+string(name)+"\"+string(name)+"-basic.png",0,1,0,0,0)
+    }
     mydoorpalette=replacepalettedoor(global.doorpalettes,string(name))
 }
 #define Draw_0
@@ -245,6 +256,7 @@ if (spr == spr_recoverchar || spr == spr_invalidchar) {
 } else if !frame && sprite_exists(spr) {
     if mydoorpalette!=-2
         scr_applyPaletteSegmented(global.shaderPaletteSwap,global.doorpalettesprites[mydoorpalette+500],SPRAY[1]+1,SPRAY[2]+1,SPRAY[3]+1,SPRAY[4]+1,0)
-    draw_sprite_part(spr,0,78,10,18,18,x-1,y-16)
+    if (!hasemblem) draw_sprite_part(spr,0,78,10,18,18,x-1,y-16)
+    else draw_sprite_part(spr,0,0,0,18,18,x-1,y-16)
     shader_reset()
 }
